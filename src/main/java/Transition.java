@@ -24,7 +24,7 @@ public class Transition extends Application {
         cir.relocate(50, 50);
         cir.setLayoutX(50);
         cir.setLayoutY(50);
-/*
+
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(3));
         transition.setToX(500);
@@ -32,7 +32,7 @@ public class Transition extends Application {
         transition.setAutoReverse(true);
         transition.setCycleCount(Animation.INDEFINITE);
         transition.setNode(cir);
-        transition.play();*/
+        transition.play();
 
 //        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(3), cir);
 //        scaleTransition.setCycleCount(Animation.INDEFINITE);

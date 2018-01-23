@@ -1,6 +1,7 @@
 
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -15,15 +16,21 @@ public class ArcToDemo extends Application {
     private PathTransition pathTransitionCircle;
 
     private void init(Stage primaryStage) {
+
+
         Group root = new Group();
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 600, 460));
+
+        Scene scene = new Scene(root, 600, 460);
+        scene.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        primaryStage.setScene(scene);
 
         // Ellipse path example
         Rectangle rect = new Rectangle(0, 0, 40, 40);
         rect.setArcHeight(10);
         rect.setArcWidth(10);
         rect.setFill(Color.ORANGE);
+        rect.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         root.getChildren().add(rect);
 
         //Path path = createEllipsePath(200, 200, 50, 100, 45);
@@ -34,10 +41,11 @@ public class ArcToDemo extends Application {
                 .duration(Duration.seconds(1))
                 .path(path)
                 .node(rect)
-                .orientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT)
+                //.orientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT)
                 .cycleCount(Timeline.INDEFINITE)
                 .autoReverse(false)
                 .build();
+        pathTransitionEllipse.setInterpolator(Interpolator.LINEAR);
 
 
         // Cirle path example
@@ -51,14 +59,16 @@ public class ArcToDemo extends Application {
         Path path2 = createEllipsePath(400, 200, 150, 150, 0);
         root.getChildren().add(path2);
 
-        pathTransitionCircle = PathTransitionBuilder.create()
-                .duration(Duration.seconds(2))
-                .path(path2)
-                .node(rect2)
-                .orientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT)
-                .cycleCount(Timeline.INDEFINITE)
-                .autoReverse(false)
-                .build();
+        pathTransitionCircle = new PathTransition();//PathTransitionBuilder.create()
+        pathTransitionCircle.setDuration(Duration.seconds(2));
+        pathTransitionCircle.setPath(path2);
+        pathTransitionCircle.setNode(rect2);
+        pathTransitionCircle.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransitionCircle.setCycleCount(Timeline.INDEFINITE);
+        pathTransitionCircle.setAutoReverse(false);
+        pathTransitionCircle.play();//  .build();
+
+
     }
 
     private Path createEllipsePath(double centerX, double centerY, double radiusX, double radiusY, double rotate) {
